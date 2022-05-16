@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.godevelopment.mytestlearn.data.RepositoryImpl
 import by.godevelopment.mytestlearn.databinding.FragmentMainBinding
 import by.godevelopment.mytestlearn.domain.ProcessDataUseCase
 
@@ -23,7 +24,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        val useCase = ProcessDataUseCase()
+        val useCase = ProcessDataUseCase(RepositoryImpl())
         viewModel = ViewModelProvider(this, MainViewModelFactory(useCase))[MainViewModel::class.java]
 
         setupUi()

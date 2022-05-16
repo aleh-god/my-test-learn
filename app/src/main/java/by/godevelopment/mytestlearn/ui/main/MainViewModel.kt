@@ -8,9 +8,10 @@ class MainViewModel constructor(
     private val processDataUseCase: ProcessDataUseCase
 ) : ViewModel() {
 
-    fun provideMessage(): String = "ViewModel Message"
+    fun provideMessage(): String = processDataUseCase.getProcessData()
 }
 
+@Suppress("UNCHECKED_CAST")
 class MainViewModelFactory constructor(
     private val processDataUseCase: ProcessDataUseCase
     ): ViewModelProvider.Factory {
