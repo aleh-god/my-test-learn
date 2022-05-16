@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Test Learn</string>
+    <string name="message_hello">Hello test!</string>
+    <string name="btn_text">Start</string>
+</resources>
