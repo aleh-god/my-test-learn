@@ -6,20 +6,24 @@ import kotlinx.coroutines.flow.flow
 
 object TestDataSource {
 
-    private var storage: String = "TestDataSource"
+    private const val refreshIntervalMs = 3000L
+    private var source: String = "TestDataSource"
 
-    fun getDataAsFlow(): Flow<String>  = flow {
-        emit(storage)
+    fun getSourceAsFlow(): Flow<String>  = flow {
+        while(true) {
+            emit(source)
+            delay(refreshIntervalMs)
+        }
     }
 
-    suspend fun getSuspendData(): String {
-        delay(1000)
-        return storage
+    suspend fun getSuspendSource(): String {
+        delay(refreshIntervalMs)
+        return source
     }
 
-    fun getData(): String = storage
+    fun getSource(): String = source
 
-    fun addDataToStorage(data: String) {
-        storage = data
+    fun changeSource(data: String) {
+        source = data
     }
 }
