@@ -18,7 +18,7 @@ class MainViewModel constructor(
     private var job: Job? = null
 
     init {
-        initFlow()
+//        initFlow()
     }
 
     private fun initFlow() {
@@ -34,6 +34,7 @@ class MainViewModel constructor(
 
     fun saveMessage(message: String) {
         processDataUseCase.saveProcessData(message)
+        _uiState.value = message
     }
 }
 

@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
         val useCase = ProcessDataUseCase(RepositoryImpl(), GetCurrentSecondsUseCase())
         viewModel = ViewModelProvider(this, MainViewModelFactory(useCase))[MainViewModel::class.java]
 
-        setupUi()
+        setupUiWithFlow()
         setupListeners()
         return binding.root
     }
@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         Toast.makeText(requireContext(), message,Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupUi() {
+    private fun setupUiWithFlow() {
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect {
                 binding.message.text = it
