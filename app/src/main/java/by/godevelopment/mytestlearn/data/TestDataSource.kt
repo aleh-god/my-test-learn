@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 
 object TestDataSource {
 
-    private const val refreshIntervalMs = 3000L
+    private const val refreshIntervalMs = 1000L
     private var source: String = "TestDataSource"
 
     fun getSourceAsFlow(): Flow<String>  = flow {

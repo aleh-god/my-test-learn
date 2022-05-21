@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import by.godevelopment.mytestlearn.data.RepositoryImpl
+import by.godevelopment.mytestlearn.data.TestDataSource
 import by.godevelopment.mytestlearn.databinding.FragmentMainBinding
 import by.godevelopment.mytestlearn.domain.GetCurrentSecondsUseCase
 import by.godevelopment.mytestlearn.domain.ProcessDataUseCase
@@ -27,7 +28,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        val useCase = ProcessDataUseCase(RepositoryImpl(), GetCurrentSecondsUseCase())
+        val useCase = ProcessDataUseCase(RepositoryImpl(TestDataSource), GetCurrentSecondsUseCase())
         viewModel = ViewModelProvider(this, MainViewModelFactory(useCase))[MainViewModel::class.java]
 
         setupUiWithFlow()
@@ -37,10 +38,7 @@ class MainFragment : Fragment() {
 
     private fun setupListeners() {
         binding.button.setOnClickListener {
-            val currentMessage = binding.inputText.text.toString()
-            viewModel.saveMessage(currentMessage)
-            val newData = viewModel.provideMessage()
-            showToast(newData)
+            updateMessage()
         }
     }
 
@@ -48,10 +46,18 @@ class MainFragment : Fragment() {
         Toast.makeText(requireContext(), message,Toast.LENGTH_SHORT).show()
     }
 
+    private fun updateMessage() {
+        viewModel.saveMessage(binding.inputText.text.toString())
+        viewModel.provideMessage().also {
+            binding.message.text = it
+            showToast(it)
+        }
+    }
+
     private fun setupUiWithFlow() {
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect {
-                binding.message.text = it
+                binding.counter.text = it
             }
         }
     }
