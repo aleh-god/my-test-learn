@@ -12,7 +12,7 @@ class MainViewModel constructor(
     private val processDataUseCase: ProcessDataUseCase
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<String> = MutableStateFlow("null")
+    private val _uiState: MutableStateFlow<String> = MutableStateFlow(INIT_VALUE)
     val uiState: StateFlow<String> = _uiState
 
     private var job: Job? = null
@@ -34,6 +34,10 @@ class MainViewModel constructor(
 
     fun saveMessage(message: String) {
         processDataUseCase.saveProcessData(message)
+    }
+
+    companion object {
+        private const val INIT_VALUE = "null"
     }
 }
 
