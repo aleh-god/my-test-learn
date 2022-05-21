@@ -1,8 +1,6 @@
 package by.godevelopment.mytestlearn.data
 
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
